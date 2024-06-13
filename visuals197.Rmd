@@ -1,0 +1,226 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+install.packages("tidyverse")
+library(ggplot2)
+```
+
+
+```{r}
+dat <- read.csv("aca.csv")
+str(dat)
+```
+
+```{r}
+dat$Target <- as.factor(dat$Target)
+test1 <- ggplot(dat, aes(x= Target, fill = Target)) +
+  geom_bar(position = "dodge") +
+  geom_text(aes(label = scales::percent(..count../sum(..count..))),
+            stat = "count",
+            position = position_dodge(width = 0.9),
+            vjust = -0.5) +
+  scale_fill_discrete(name = "Factor Levels") +
+  theme_minimal() +
+  labs(title = "% Enrolled, Dropped, Or Graudated for Target")
+test1 + scale_fill_brewer()
+
+ggsave("test1.png")
+
+```
+```{r}
+library(GGally)
+pairstoomany <- ggpairs(dat)
+ggsave("pairstoomany.png")
+
+
+```
+
+```{r}
+library(data.table)
+library(mltools)
+options(max.print=999999)
+dat$Target <- one_hot(as.data.table(dat$Target))
+cor(dat)
+
+```
+
+```{r}
+
+
+dat$Gender <- as.factor(dat$Gender)
+ggplot(dat, aes(x=Gender)) +
+         geom_bar()x
+
+
+dat2 <- read.csv("aca.csv")
+
+library(dplyr)
+
+dat2_percent <- dat2 %>%
+  group_by(Gender, Target) %>%
+  summarise(Count = n(), .groups = 'drop') %>%
+  group_by(Gender) %>%
+  mutate(Percent = Count / sum(Count) * 100)
+
+
+ 
+ male_female<-ggplot(dat2_percent, aes(x = Gender, y = Percent, fill = Target)) + 
+  geom_bar(position = "dodge", stat = "identity") +
+  geom_text(aes(label = paste0(round(Percent, 1), "%")), # Adding percentage labels
+            position = position_dodge(width = 0.9),  # Adjust so labels don't overlap
+            vjust = -0.5,  # Adjust to position the labels above the bars
+            size = 3) +  # Modify text size as needed
+  labs(x = "Gender", y = "Percentage", fill = "Graduation Outcome") +
+  scale_x_discrete(labels = c("0" = "Female", "1" = "Male")) +
+  theme_minimal() +
+  labs(title="% Outcomes by Gender")
+ male_female+ scale_fill_brewer()
+
+
+ggsave("male_female.png")
+
+```
+```{r}
+dat3 <- read.csv("aca.csv")
+dat3$Target <- as.factor(dat3$Target) 
+
+dat3$Educational.special.needs <- as.factor(dat3$Educational.special.needs)
+ggplot(dat3, aes(x = Educational.special.needs, fill = Target)) + 
+  geom_bar(position = "stack") +
+  labs(x = "Sped", y = "Count", fill = "GradOutcome") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Pastel1") # Optional: Use a color palette for better visuals
+
+
+dat3_special_needs_only <- dat3 %>% 
+  filter(Educational.special.needs == 1)
+
+ggplot(dat3_special_needs_only,aes(x=Educational.special.needs, fill = Target)) +
+  geom_bar(position = "stack") +
+  labs(x="Special Needs", y = "Count")
+
+```
+```{r}
+aov(dat3$Inflation.rate ~ dat3$Target, data = dat3)
+library(nnet)
+model <- multinom(Target ~ Inflation.rate, data=dat3)
+summary(model)
+
+kruskal.test(Inflation.rate ~ Target, data=dat3)
+#none of thesse were really useful
+```
+
+
+```{r}
+model2 <- multinom(Target ~ GDP, data = dat3)
+summary(model2)
+
+kruskal.test(GDP ~ Target, data=dat3)
+```
+```{r}
+model3 <- multinom(Target ~ Admission.grade, data = dat3)
+summary(model3)
+kruskal.test(Admission.grade ~ Target, data=dat3)
+
+scatter_box <- ggplot(dat3, aes(x=Target, y=Admission.grade, fill = Target)) +
+  geom_boxplot(outliers.shape = NA) +
+  geom_jitter(colour = 4, alpha = 0.1) +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Blues")  # Note 'fill' instead of 'colour'
+
+ggsave("scatter_box.png")
+```
+```{r}
+dat3$Course <- as.factor(dat3$Course)
+
+
+
+
+install.packages("vcd")
+```
+
+
+```{r}
+library(vcd)
+library(RColorBrewer)
+blue_palette <- brewer.pal(n = 3, name = "Blues")
+# Creating a mosaic plot directly from the data. It internally computes counts.
+mosaicplot(~ Course + Target, data = dat3, color = blue_palette,
+           main = "Mosaic Plot of Course vs Outcome")
+chisq.test(dat3$Target, dat3$Course, simulate.p.value = TRUE)
+
+```
+
+```{r}
+install.packages("randomForest")
+library(randomForest)
+set.seed(13579)
+str(dat3)
+dat3$Marital.status <- as.factor(dat3$Marital.status)
+dat3$Application.mode <- as.factor(dat3$Application.mode)
+dat3$Application.order <- as.factor(dat3$Application.order)
+dat3$Course <- as.factor(dat3$Course)
+dat3$Daytime.evening.attendance. <- as.factor(dat3$Daytime.evening.attendance.)
+dat3$Previous.qualification <- as.factor(dat3$Previous.qualification)
+dat3$Nacionality <- as.factor(dat3$Nacionality)
+dat3$Mother.s.qualification <- as.factor(dat3$Mother.s.qualification)
+dat3$Father.s.qualification <- as.factor(dat3$Father.s.qualification)
+dat3$Mother.s.occupation <- as.factor(dat3$Mother.s.occupation)
+dat3$Father.s.occupation <- as.factor(dat3$Father.s.occupation)
+dat3$Father.s.occupation <- as.factor(dat3$Father.s.occupation)
+dat3$Displaced <- as.factor(dat3$Displaced)
+dat3$Displaced <- as.factor(dat3$Displaced)
+dat3$Educational.special.needs <- as.factor(dat3$Educational.special.needs)
+dat3$Debtor <- as.factor(dat3$Debtor)
+dat3$Tuition.fees.up.to.date <- as.factor(dat3$Tuition.fees.up.to.date)
+dat3$Gender <- as.factor(dat3$Gender)
+dat3$Scholarship.holder <- as.factor(dat3$Scholarship.holder)
+dat3$International <- as.factor(dat3$International)
+
+ind <- sample(2, nrow(dat3), replace = TRUE, prob = c(0.8, 0.2))
+train <- dat3[ind==1,]
+test <- dat3[ind==2,]
+rf <- randomForest(Target~., data=train, proximity=TRUE)
+rf
+
+p1 <- predict(rf, test)
+library(tidyverse)
+library(caret)
+confusionMatrix(p1, test$ Target)
+plot(rf)
+```
+
+
+```{r}
+t <- tuneRF(train[,-5], train[,5],
+       stepFactor = 0.5,
+       plot = TRUE,
+       ntreeTry = 150,
+       trace = TRUE,
+       improve = 0.05)
+```
+
+```{r}
+hist(treesize(rf),
+     main = "No. of Nodes for the Trees",
+     col = "blue")
+
+varImpPlot(rf,
+           sort = T,
+           n.var = 10,
+           main = "Top 10 - Variable Importance")
+
+
+```
+
+```{r}
+
+```
+
