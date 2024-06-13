@@ -7,8 +7,10 @@ With the ability to create predictions on how students might perform in school d
 ## Outcome and Objective
 We are trying to predict 3 possible outcomes for students: Enrolled, Graduated, and Dropped Out.
 <img width="932" alt="Screenshot 2024-06-12 at 8 01 50 PM" src="https://github.com/RyanEurich/Aca-Success/assets/97063139/631c6a48-9c73-4109-9d06-6e3840ed20cf">
+
 ### Gender and Grade
 <img width="1125" alt="Screenshot 2024-06-12 at 8 05 20 PM" src="https://github.com/RyanEurich/Aca-Success/assets/97063139/bf19a429-92aa-4525-84cf-c4ca75c3f33e">
+
 ### Course
 <img width="837" alt="Screenshot 2024-06-12 at 8 07 00 PM" src="https://github.com/RyanEurich/Aca-Success/assets/97063139/2c8ae6c7-056c-4162-9ec3-75c0a9f2bfc9">
 
