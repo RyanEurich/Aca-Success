@@ -26,7 +26,7 @@ Final model after taking out the enrolled class.
 <img width="1164" alt="Screenshot 2024-06-12 at 8 22 38 PM" src="https://github.com/RyanEurich/Aca-Success/assets/97063139/1f5fc41e-ea8f-4dd2-9c6a-3f4a113b1005">
 Feature Importance stayed relatively similar
 <img width="1198" alt="Screenshot 2024-06-12 at 8 24 19 PM" src="https://github.com/RyanEurich/Aca-Success/assets/97063139/452a29f1-154b-4a11-a18d-2d115e14a58b">
-Results. We still had some trouble predicting the True Positive class but when changing the scale position weight it hurt overall model acuracy so we scaled back.
+We still had some trouble predicting the True Positive class but when changing the scale position weight it hurt overall model acuracy so we scaled back.
 <img width="1038" alt="Screenshot 2024-06-12 at 8 25 03 PM" src="https://github.com/RyanEurich/Aca-Success/assets/97063139/032c1e6f-3a17-4de4-97af-6849f23f3abb">
 
 ## Other Models
