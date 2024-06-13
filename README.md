@@ -17,6 +17,7 @@ We are trying to predict 3 possible outcomes for students: Enrolled, Graduated, 
 ### XGBoost and SMOTE CN
 First pass with XGBoost yielded 80% accuracy but the 3 categories confused most models. Eventually we would take out the enrolled category to compare against dropout vs graduated to have more clear decision boundaries.
 <img width="681" alt="Screenshot 2024-06-12 at 8 09 14 PM" src="https://github.com/RyanEurich/Aca-Success/assets/97063139/dc1a2ff8-5692-4926-a839-7b6c68ccc3e9">
+
 As expected, GPA and admission scores had the biggest impact in predicting dropout and success.
 <img width="1057" alt="Screenshot 2024-06-12 at 8 08 39 PM" src="https://github.com/RyanEurich/Aca-Success/assets/97063139/b9f9d085-b836-4a42-8bdd-08ff71f2e121">
 
