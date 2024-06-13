@@ -7,6 +7,9 @@ With the ability to create predictions on how students might perform in school d
 ### Modeling
 We settled on XGBoost after running through many different models including SVM's, KNN, Logistic Regression (one-one, one-all), CNNs, RNNs, and random forests. The small size of our data set and many categorical features made XGBoost perform quite well compared to the others.
 
+### Feature Selection
+We removed many of the macro-economic factors such as inflation rate, unemployment rate, and GDP as they did not have any correlation to rates although they could be co-related to occupation factors that were included in the model. We also had Ridge and Lasso regularizatin on to prevent overfitting.
+
 ## Outcome and Objective
 We are trying to predict 3 possible outcomes for students: Enrolled, Graduated, and Dropped Out.
 <img width="932" alt="Screenshot 2024-06-12 at 8 01 50 PM" src="https://github.com/RyanEurich/Aca-Success/assets/97063139/631c6a48-9c73-4109-9d06-6e3840ed20cf">
